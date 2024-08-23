@@ -6,6 +6,7 @@ from permissions.models import Post
 from permissions.serializers import PostSerializers
 from rest_framework.generics import GenericAPIView,CreateAPIView
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly,IsAdminUser
+from permissions.permissions import IsOwnerOrViewOnly
 
 from rest_framework.generics import ListAPIView
 # Create your views here.
@@ -13,7 +14,7 @@ from rest_framework.generics import ListAPIView
 class PostAddList(CreateAPIView,
                   ListAPIView
                   ):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrViewOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializers
 
